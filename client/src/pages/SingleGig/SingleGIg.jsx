@@ -1,7 +1,7 @@
 import React from "react";
 import "./SingleGig.scss";
-const SingleGIg = () => {
+const SingleGig = () => {
   return <div className="singleGig">SingleGIg</div>;
 };
 
-export default SingleGIg;
+export default SingleGig;
