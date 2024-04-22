@@ -1,0 +1,50 @@
+.slider {
+  display: flex;
+  justify-content: center;
+  padding: 100px 0px;
+  position: relative;
+
+  .container {
+    width: 1200px;
+    position: relative;
+  }
+
+  .alice-carousel__prev-btn-item {
+    position: absolute;
+    top: 150px;
+    left: -21px;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: black;
+    opacity: 0.7;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .alice-carousel__next-btn-item {
+    position: absolute;
+    top: 150px;
+    right: -21px;
+    color: white;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: black;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .alice-carousel__next-btn [data-area]::after {
+    content: "\2192" !important;
+  }
+  .alice-carousel__prev-btn [data-area]::after {
+    content: "\2190" !important;
+    transform: rotate(360deg);
+  }
+}

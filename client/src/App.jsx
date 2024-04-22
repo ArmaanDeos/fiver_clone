@@ -8,6 +8,8 @@ import MyGigs from "./pages/myGigs/MyGigs";
 import Add from "./pages/AddGigs/Add";
 import Messages from "./pages/Messages/Messages";
 import SingleMessages from "./pages/SingleMessages/SingleMessages";
+import Register from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
 
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Footer from "./components/footer/Footer";
@@ -59,6 +61,14 @@ const App = () => {
         {
           path: "/message/:id",
           element: <SingleMessages />,
+        },
+        {
+          path: "/register",
+          element: <Register />,
+        },
+        {
+          path: "/login",
+          element: <Login />,
         },
       ],
     },

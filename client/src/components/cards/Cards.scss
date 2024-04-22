@@ -1,0 +1,38 @@
+.cards {
+  width: 275px;
+  height: 344px;
+  border-radius: 5px;
+  color: #fff;
+  position: relative;
+  cursor: pointer;
+
+  .opacity {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .desc {
+    font-weight: 300;
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    z-index: 1;
+  }
+  .title {
+    font-weight: 500;
+    font-size: 24px;
+    position: absolute;
+    top: 40px;
+    left: 15px;
+    z-index: 1;
+  }
+}
