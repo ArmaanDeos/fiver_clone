@@ -68,4 +68,15 @@ const loginUser = asyncHandler(async (req, res) => {
   generateAccessToken(200, loggedInUser, res);
 });
 
-export { registerUser, loginUser };
+//* LogoutUser Controller *//
+const logoutUser = asyncHandler(async (req, res) => {
+  res.cookie("token", "", {
+    httpOnly: true,
+    expires: new Date(Date.now()),
+    sameSite: "none",
+  });
+
+  res.status(200).json(new ApiResponse(200, "User logged out successfully"));
+});
+
+export { registerUser, loginUser, logoutUser };
