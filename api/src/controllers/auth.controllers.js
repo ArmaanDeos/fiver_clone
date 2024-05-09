@@ -7,8 +7,8 @@ import bcrypt from "bcrypt";
 
 //* RegisterUser Controller *//
 const registerUser = asyncHandler(async (req, res) => {
-  const { username, email, password, country } = req.body;
-  if (!username || !email || !password || !country) {
+  const { username, email, password, country, img } = req.body;
+  if (!username || !email || !password || !country || !img) {
     throw new ApiError(400, "All fields are required");
   }
 
@@ -26,6 +26,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password: hashPassword,
     country,
+    img,
   });
 
   // Remove password field from db
