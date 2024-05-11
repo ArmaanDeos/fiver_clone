@@ -14,14 +14,20 @@ import Login from "./pages/Login/Login";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Footer from "./components/footer/Footer";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
+
 const App = () => {
   const Layout = () => {
     return (
-      <div className="app">
-        <Navbar />
-        <Outlet />
-        <Footer />
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <div className="app">
+          <Navbar />
+          <Outlet />
+          <Footer />
+        </div>
+      </QueryClientProvider>
     );
   };
 

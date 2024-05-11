@@ -1,21 +1,43 @@
 import React from "react";
 import "./GigCards.scss";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import requestMethod from "../../utils/requestMethod";
 
 const GigCards = ({ item }) => {
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["gigUser"],
+    queryFn: async () => {
+      return await requestMethod.get(`/users/${item.userId}`).then((res) => {
+        return res.data.data;
+      });
+    },
+  });
+  console.log(data);
+
   return (
-    <Link to="/gig/123">
+    <Link to={`/gig/${item._id}`}>
       <div className="gigCard">
-        <img src={item.img} alt="" />
+        <img src={item.coverImg} alt="" />
         <div className="info">
-          <div className="user">
-            <img src={item.pp} alt="" />
-            <span>{item.username}</span>
-          </div>
+          {isLoading ? (
+            "Loading..."
+          ) : error ? (
+            "Something went wrong"
+          ) : (
+            <div className="user">
+              <img src={data.img || "./img/noavatar.jpg"} alt="" />
+              <span>{data.username}</span>
+            </div>
+          )}
           <p>{item.desc}</p>
           <div className="star">
             <img src="./img/star.png" alt="" />
-            <span>{item.star}</span>
+            <span>
+              {!isNaN(item.totalStars / item.starsNum) &&
+                item.starNumber !== 0 &&
+                Math.round(item.totalStars / item.starsNum)}
+            </span>
           </div>
         </div>
         <hr />

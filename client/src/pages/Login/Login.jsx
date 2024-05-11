@@ -19,7 +19,7 @@ const Login = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const creadentials = { username, email, password };
+      const creadentials = { email, password };
       await login(dispatch, creadentials);
       toast.success("user logged in successfully");
     } catch (error) {
@@ -42,13 +42,7 @@ const Login = () => {
         <form onSubmit={submitHandler}>
           {/* Use onSubmit event handler on the form */}
           <h1>Sign in</h1>
-          <label htmlFor="">Username</label>
-          <input
-            name="username"
-            type="text"
-            placeholder="johndoe"
-            onChange={(e) => setUsername(e.target.value)}
-          />
+
           <label htmlFor="">Email</label>
           <input
             name="email"

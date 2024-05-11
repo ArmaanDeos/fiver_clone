@@ -11,4 +11,11 @@ const deleteUser = asyncHandler(async (req, res) => {
   res.status(200).json(new ApiResponse(200, "User deleted successfully"));
 });
 
-export { deleteUser };
+//* GetUser Controller *//
+const getUser = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.params.id);
+  if (!user) throw new ApiError(404, "User not found");
+  res.status(200).json(new ApiResponse(200, user, "User found successfully"));
+});
+
+export { deleteUser, getUser };

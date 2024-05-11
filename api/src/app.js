@@ -35,5 +35,7 @@ app.use(cookieParser());
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/gigs", gigRoutes);
+app.use("/api/v1/reviews", reviewRoutes);
 
 export { app };
