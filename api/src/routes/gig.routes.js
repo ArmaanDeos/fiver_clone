@@ -12,5 +12,6 @@ router.post("/create", isAuthorizedUser, createGig);
 router.delete("/:id", isAuthorizedUser, deleteGig);
 router.get("/single/:id", getSingleGig);
 router.get("/", getGigs);
+router.get("/:id", getGigs);
 
 export default router;

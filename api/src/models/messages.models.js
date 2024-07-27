@@ -9,7 +9,7 @@ const messageSchema = new Schema(
       type: String,
       required: true,
     },
-    message: {
+    desc: {
       type: String,
       required: true,
     },
@@ -19,6 +19,4 @@ const messageSchema = new Schema(
   }
 );
 
-const Message = mongoose.model("Message", messageSchema);
-
-export default Message;
+export const Message = mongoose.model("Message", messageSchema);

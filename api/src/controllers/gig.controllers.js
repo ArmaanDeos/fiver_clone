@@ -56,14 +56,15 @@ const getGigs = asyncHandler(async (req, res) => {
   };
 
   // Pagination
-  const page = parseInt(q.page) || 1;
-  const limit = parseInt(q.limit) || 10;
+  const page = parseInt(q.page, 10) || 1;
+  const limit = parseInt(q.limit, 10) || 10;
   const skip = (page - 1) * limit;
 
   const gigs = await Gig.find(filters)
-    .sort({ [q.sort]: -1 })
+    .sort({ [q.sort]: -1 }) // Ensure q.sort is a valid field to sort by
     .skip(skip)
     .limit(limit);
+
   res.status(200).json(new ApiResponse(200, gigs, "Gigs fetched successfully"));
 });
 

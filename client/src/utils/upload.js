@@ -10,12 +10,14 @@ const upload = async (file) => {
       "https://api.cloudinary.com/v1_1/armaandev/image/upload",
       data
     );
-    // console.log(res.data);
     const { secure_url } = res.data;
-    // console.log(secure_url);
     return secure_url;
   } catch (error) {
-    console.log(error);
+    console.error(
+      "Error uploading file to Cloudinary:",
+      error.response ? error.response.data : error.message
+    );
+    throw error; // Re-throw the error to be handled by the calling function
   }
 };
 

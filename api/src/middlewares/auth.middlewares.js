@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 // isAuthorizedUser middlewares
 const isAuthorizedUser = asyncHandler(async (req, res, next) => {
   const { token } = req.cookies;
-  //   console.log(token);
+  console.log(token);
 
   if (!token) {
     throw new ApiError(

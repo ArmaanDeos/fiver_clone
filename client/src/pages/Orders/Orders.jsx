@@ -1,130 +1,97 @@
 import React from "react";
 import "./Orders.scss";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import requestMethod from "../../utils/requestMethod";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Orders = () => {
-  const currentUser = {
-    id: 1,
-    username: "Anna",
-    isSeller: true,
+  const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.auth.user);
+  console.log(currentUser);
+  const queryClient = useQueryClient();
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["orders"],
+    queryFn: async () => {
+      try {
+        const res = await requestMethod.get("/orders");
+        console.log(res);
+        return res.data.data;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    },
+  });
+
+  const mutation = useMutation({
+    mutationFn: async (orderId) => {
+      await requestMethod.delete(`/orders/${orderId}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(["orders"]);
+    },
+  });
+
+  const handleContact = async (order) => {
+    const sellerId = order.sellerId;
+    const buyerId = order.buyerId;
+    const id = sellerId + buyerId;
+    try {
+      const res = await requestMethod.get(`/conversations/single/${id}`);
+      navigate(`/message/${res.data.id}`);
+    } catch (error) {
+      if (error.response.status === 404) {
+        const res = await requestMethod.post(`/conversations/`, {
+          to: currentUser.isSeller ? buyerId : sellerId,
+        });
+        navigate(`/message/${res.data.id}`);
+      }
+    }
   };
+
   return (
     <div className="orders">
-      <div className="container">
-        <div className="title heading">
-          <h1>Orders</h1>
+      {isLoading ? (
+        "Loading..."
+      ) : error ? (
+        "Something went wrong"
+      ) : (
+        <div className="container">
+          <div className="title heading">
+            <h1>Orders</h1>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Price</th>
+                <th>Contact</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((item, i) => (
+                <tr key={i}>
+                  <td>
+                    <img className="image" src={item.img} alt="" />
+                  </td>
+                  <td>{item.title}</td>
+                  <td>{item.price}</td>
+                  <td>
+                    <img
+                      className="message"
+                      src="./img/message.png"
+                      alt=""
+                      onClick={() => handleContact(item)} // Pass item to handleContact
+                    />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-        <table>
-          <tr>
-            <th>Image</th>
-            <th>Title</th>
-            <th>Price</th>
-            {<th>{currentUser.isSeller ? "Buyer" : "Seller"}</th>}
-            <th>Contact</th>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Stunning concept art</td>
-            <td>
-              59.<sup>99</sup>
-            </td>
-            <td>Maria Anders</td>
-            <td>
-              <img className="message" src="./img/message.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Ai generated concept art</td>
-            <td>
-              79.<sup>99</sup>
-            </td>
-            <td>Francisco Chang</td>
-            <td>
-              <img className="message" src="./img/message.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>High quality digital character</td>
-            <td>
-              110.<sup>99</sup>
-            </td>
-            <td>Roland Mendel</td>
-            <td>
-              <img className="message" src="./img/message.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Illustration hyper realistic painting</td>
-            <td>
-              39.<sup>99</sup>
-            </td>
-            <td>Helen Bennett</td>
-            <td>
-              <img className="message" src="./img/message.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Original ai generated digital art</td>
-            <td>
-              119.<sup>99</sup>
-            </td>
-            <td>Yoshi Tannamuri</td>
-            <td>
-              <img className="message" src="./img/message.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Text based ai generated art</td>
-            <td>
-              49.<sup>99</sup>
-            </td>
-            <td>Giovanni Rovelli</td>
-            <td>
-              <img className="message" src="./img/message.png" alt="" />
-            </td>
-          </tr>
-        </table>
-      </div>
+      )}
     </div>
   );
 };

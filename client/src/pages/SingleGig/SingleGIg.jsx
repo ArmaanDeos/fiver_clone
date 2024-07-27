@@ -3,7 +3,7 @@ import "./SingleGig.scss";
 import "react-alice-carousel/lib/alice-carousel.css";
 import GigSLider from "../../components/gigSlider/GigSLider";
 import requestMethod from "../../utils/requestMethod";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import Reviews from "../../components/reviews/Reviews";
 
@@ -168,7 +168,9 @@ const SingleGig = () => {
                 </div>
               ))}
             </div>
-            <button>Continue</button>
+            <Link to={`/payment/${id}`}>
+              <button>Continue</button>
+            </Link>
           </div>
         </div>
       )}

@@ -37,6 +37,18 @@
           padding: 20px;
         }
 
+        .images {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+
+          .imagesInput {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          }
+        }
+
         button {
           border: none;
           padding: 20px;
@@ -45,6 +57,33 @@
           font-size: 18px;
           background-color: #1dbf73;
           cursor: pointer;
+        }
+        .add {
+          display: flex;
+          justify-content: space-between;
+
+          input {
+            width: 80%;
+          }
+        }
+
+        .addedFeatures {
+          display: flex;
+          gap: 20px;
+
+          button {
+            border: none;
+            padding: 10px;
+            color: teal;
+            border: 1px solid teal;
+            font-weight: 300;
+            font-size: 12px;
+            background-color: transparent;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+          }
         }
       }
     }

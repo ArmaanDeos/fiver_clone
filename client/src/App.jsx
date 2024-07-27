@@ -15,6 +15,8 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Footer from "./components/footer/Footer";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import Payment from "./pages/Payment/Payment";
+import Success from "./pages/Success/Success";
 
 const queryClient = new QueryClient();
 
@@ -53,11 +55,11 @@ const App = () => {
           element: <Orders />,
         },
         {
-          path: "/my-gigs",
+          path: "/mygigs",
           element: <MyGigs />,
         },
         {
-          path: "/add-gigs",
+          path: "/add",
           element: <Add />,
         },
         {
@@ -75,6 +77,14 @@ const App = () => {
         {
           path: "/login",
           element: <Login />,
+        },
+        {
+          path: "/payment/:id",
+          element: <Payment />,
+        },
+        {
+          path: "/success",
+          element: <Success />,
         },
       ],
     },
